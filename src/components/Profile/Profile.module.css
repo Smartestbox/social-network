@@ -1,3 +1,7 @@
 .content {
     grid-area: content;
 }
+
+.content img {
+    width: 100%;
+}
