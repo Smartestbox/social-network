@@ -1,0 +1,16 @@
+.appWrapper {
+    /*width: 1200px;*/
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 150px 1fr;
+    grid-template-columns: 122.78px 5fr;
+    grid-template-areas:
+    'header header'
+    'nav content';
+}
+
+
+
+
+
+
