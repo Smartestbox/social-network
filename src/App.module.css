@@ -11,6 +11,10 @@
     'nav content';
 }
 
+.appWrapperContent {
+    grid-area: content;
+    background-color: lightblue;
+}
 
 
 
