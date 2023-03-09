@@ -35,23 +35,36 @@ const Message: React.FC<MessagePropsType> = ({
 }
 
 const Dialogs = () => {
+
+    let dialogsData = [
+        {id: '1', name: 'Dimych'},
+        {id: '2', name: 'Andrey'},
+        {id: '3', name: 'Sveta'},
+        {id: '4', name: 'Sasha'},
+        {id: '5', name: 'Viktor'},
+        {id: '6', name: 'Valera'},
+    ]
+
+    let messagesData = [
+        {id: '1', message: 'Hi'},
+        {id: '2', message: 'How is your day?'},
+        {id: '3', message: 'Yo!'},
+        {id: '4', message: 'Some text'},
+        {id: '5', message: 'Bye'},
+        {id: '6', message: 'I don\'t know what to say'},
+    ]
+
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>
-                <DialogItem id={'1'} name={'Dimych'}/>
-                <DialogItem id={'2'} name={'Andrey'}/>
-                <DialogItem id={'3'} name={'Sveta'}/>
-                <DialogItem id={'4'} name={'Sasha'}/>
-                <DialogItem id={'5'} name={'Viktor'}/>
-                <DialogItem id={'6'} name={'Valera'}/>
+                {
+                    dialogsData.map(dialog => <DialogItem id={dialog.id} name={dialog.name} />)
+                }
             </div>
             <div className={styles.messages}>
-                <Message message={'Hi'} />
-                <Message message={'How is your day?'} />
-                <Message message={'YO!'} />
-                <Message message={'Some text'} />
-                <Message message={'Bye'} />
-                <Message message={'I don\'t know what to say'} />
+                {
+                    messagesData.map(message => <Message message={message.message} />)
+                }
             </div>
         </div>
     )
