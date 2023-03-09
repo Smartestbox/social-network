@@ -13,10 +13,7 @@ const Post: React.FC<PostPropsType> = ({
                                        }) => {
     return (
         <div className={styles.item}>
-            <img
-                src={DefaultAvatar}
-                alt="avatar"
-            />
+            <img src={DefaultAvatar} alt="avatar"/>
             {message}
             <div>
                 <span>like </span>

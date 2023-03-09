@@ -12,14 +12,19 @@
     color: white;
 }
 
+.dialogItem a {
+    text-decoration: none;
+    color: white;
+}
+
+.dialogItem a.active {
+    color: gold;
+}
+
 .messages {
 
 }
 
 .message {
     color: white;
-}
-
-.active {
-    color: gold;
 }

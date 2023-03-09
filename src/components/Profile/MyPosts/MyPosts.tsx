@@ -1,14 +1,14 @@
 import React from 'react';
-import styles from "../Profile.module.css";
+import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = () => {
     return (
-        <div>
-            My posts
+        <div className={styles.container}>
+            <h3>My posts</h3>
             <div>
-                <textarea></textarea>
-                <button>Add post</button>
+                <div><textarea></textarea></div>
+                <div><button>Add post</button></div>
             </div>
             <div className={styles.posts}>
                 <Post message={'Hi, how are you?'} likes={'30'}/>
