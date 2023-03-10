@@ -8,33 +8,14 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
+import {StateType} from "./redux/state";
 
-export type AppPropsType = {
-    posts: PostType[]
-    dialogs: DialogType[]
-    messages: MessageType[]
-}
-
-export type PostType = {
-    id: string
-    message: string
-    likesCount: string
-}
-
-export type DialogType = {
-    id: string
-    name: string
-}
-
-export type MessageType = {
-    id: string
-    message: string
+type AppPropsType = {
+    state: StateType
 }
 
 const App: React.FC<AppPropsType> = ({
-                                         posts,
-                                         dialogs,
-                                         messages,
+                                         state
                                      }) => {
     return (
         <BrowserRouter>
@@ -42,8 +23,10 @@ const App: React.FC<AppPropsType> = ({
                 <Header/>
                 <Navbar/>
                 <div className={styles.appWrapperContent}>
-                    <Route path={'/profile'} render={() => <Profile posts={posts}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={dialogs} messages={messages}/>}/>
+                    <Route path={'/profile'} render={() => <Profile state={state.profilePage}/>}/>
+                    <Route path={'/dialogs'}
+                           render={() =>
+                               <Dialogs state={state.dialogsPage}/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
