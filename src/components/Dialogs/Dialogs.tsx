@@ -9,21 +9,17 @@ type DialogsPropsType = {
 }
 
 const Dialogs: React.FC<DialogsPropsType> = ({
-                                                state,
+                                                 state,
                                              }) => {
-
-
+    const dialogsElements = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const messagesElements = state.messages.map(message => <Message message={message.message}/>)
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>
-                {
-                    state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-                }
+                {dialogsElements}
             </div>
             <div className={styles.messages}>
-                {
-                    state.messages.map(message => <Message message={message.message}/>)
-                }
+                {messagesElements}
             </div>
         </div>
     )
