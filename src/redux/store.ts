@@ -1,3 +1,6 @@
+import profileReducer, {addPostAC, updateNewPostTextAC} from "./ProfileReducer";
+import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./DialogsReducer";
+
 export type ProfilePage = {
     posts: PostType[]
     newPostText: string
@@ -84,46 +87,11 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case 'ADD-POST':
-                const newPost: PostType = {
-                    id: '5',
-                    message: this._state.profilePage.newPostText,
-                    likesCount: '0'
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber()
-                return
-            case 'UPDATE-NEW-POST-TEXT':
-                this._state.profilePage.newPostText = action.newPostText
-                this._callSubscriber()
-                return
-            case 'UPDATE-NEW-MESSAGE-TEXT':
-                this._state.dialogsPage.newMessageText = action.newMessageText
-                this._callSubscriber()
-                return
-            case 'SEND-MESSAGE':
-                const newMessage = {
-                    id: '7',
-                    message: this._state.dialogsPage.newMessageText
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessageText = ''
-                this._callSubscriber()
-                return
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber()
     },
 }
-export const addPostAC = () => ({type: 'ADD-POST'}) as const
-export const updateNewPostTextAC = (newText: string) =>
-    ({type: 'UPDATE-NEW-POST-TEXT', newPostText: newText}) as const
-
-
-export const updateNewMessageTextAC = (newText: string) =>
-    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: newText}) as const
-
-export const sendMessageAC = () => ({type: 'SEND-MESSAGE'}) as const
 
 export default store;
 
