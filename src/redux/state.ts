@@ -29,36 +29,17 @@ export type StoreType = {
     _callSubscriber: () => void
     getState: () => StateType
     subscribe: (observer: () => void) => void
-    dispatch: (action: ActionType) => void
+    dispatch: (action: AllActionTypes) => void
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-BODY'
-    newMessageText: string
-}
-export type SendMessageActionType = {
-    type: 'SEND-MESSAGE'
-}
+export type AllActionTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateNewMessageTextAC>
+    | ReturnType<typeof sendMessageAC>
 
-export type ActionType =
-    AddPostActionType
-    | UpdateNewPostTextActionType
-    | UpdateNewMessageTextActionType
-    | SendMessageActionType
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
-
-let store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -98,13 +79,13 @@ let store: StoreType = {
     getState () {
       return this._state
     },
-    subscribe (observer: () => void) {
+    subscribe (observer) {
         this._callSubscriber = observer
     },
 
-    dispatch(action: ActionType) {
+    dispatch(action) {
         switch (action.type) {
-            case ADD_POST:
+            case 'ADD-POST':
                 const newPost: PostType = {
                     id: '5',
                     message: this._state.profilePage.newPostText,
@@ -114,15 +95,15 @@ let store: StoreType = {
                 this._state.profilePage.newPostText = ''
                 this._callSubscriber()
                 return
-            case UPDATE_NEW_POST_TEXT:
+            case 'UPDATE-NEW-POST-TEXT':
                 this._state.profilePage.newPostText = action.newPostText
                 this._callSubscriber()
                 return
-            case UPDATE_NEW_MESSAGE_BODY:
+            case 'UPDATE-NEW-MESSAGE-TEXT':
                 this._state.dialogsPage.newMessageText = action.newMessageText
                 this._callSubscriber()
                 return
-            case SEND_MESSAGE:
+            case 'SEND-MESSAGE':
                 const newMessage = {
                     id: '7',
                     message: this._state.dialogsPage.newMessageText
@@ -134,11 +115,15 @@ let store: StoreType = {
         }
     },
 }
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST})
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newPostText: newText})
-export const updateNewMessageTextActionCreator = (newText: string): UpdateNewMessageTextActionType =>
-    ({type: UPDATE_NEW_MESSAGE_BODY, newMessageText: newText})
-export const sendMessageActionCreator = (): SendMessageActionType => ({type: SEND_MESSAGE})
+export const addPostAC = () => ({type: 'ADD-POST'}) as const
+export const updateNewPostTextAC = (newText: string) =>
+    ({type: 'UPDATE-NEW-POST-TEXT', newPostText: newText}) as const
+
+
+export const updateNewMessageTextAC = (newText: string) =>
+    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: newText}) as const
+
+export const sendMessageAC = () => ({type: 'SEND-MESSAGE'}) as const
 
 export default store;
+

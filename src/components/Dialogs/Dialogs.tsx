@@ -3,16 +3,15 @@ import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {
-    ActionType,
+    AllActionTypes,
     DialogsPage,
-    sendMessageActionCreator,
-    updateNewMessageTextActionCreator,
-    updateNewPostTextActionCreator
+    sendMessageAC,
+    updateNewMessageTextAC,
 } from "../../redux/state";
 
 type DialogsPropsType = {
     state: DialogsPage
-    dispatch: (action: ActionType) => void
+    dispatch: (action: AllActionTypes) => void
     newMessageText: string
 }
 
@@ -22,11 +21,11 @@ const Dialogs: React.FC<DialogsPropsType> = ({
                                                  newMessageText,
                                              }) => {
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewMessageTextActionCreator(e.currentTarget.value))
+        dispatch(updateNewMessageTextAC(e.currentTarget.value))
     }
     const onSendMessageClick = () => {
-        if(newMessageText) {
-            dispatch(sendMessageActionCreator())
+        if (newMessageText) {
+            dispatch(sendMessageAC())
         }
     }
 
@@ -40,7 +39,8 @@ const Dialogs: React.FC<DialogsPropsType> = ({
             <div className={styles.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <div><textarea placeholder={'Enter your message'} value={newMessageText} onChange={onTextareaChange}/></div>
+                    <div><textarea placeholder={'Enter your message'} value={newMessageText}
+                                   onChange={onTextareaChange}/></div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
                     </div>
