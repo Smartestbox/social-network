@@ -1,7 +1,27 @@
 import {AllActionTypes, DialogsPage} from "./store";
 
+const initialState = {
+    dialogs: [
+        {id: '1', name: 'Dimych'},
+        {id: '2', name: 'Andrey'},
+        {id: '3', name: 'Sveta'},
+        {id: '4', name: 'Sasha'},
+        {id: '5', name: 'Viktor'},
+        {id: '6', name: 'Valera'},
+    ],
+    messages: [
+        {id: '1', message: 'Hi'},
+        {id: '2', message: 'How is your day?'},
+        {id: '3', message: 'Yo!'},
+        {id: '4', message: 'Some text'},
+        {id: '5', message: 'Bye'},
+        {id: '6', message: 'I don\'t know what to say'},
+    ],
+    newMessageText: ''
+}
+
 const dialogsReducer = (
-    state: DialogsPage,
+    state: DialogsPage = initialState,
     action: AllActionTypes
 ): DialogsPage => {
     switch (action.type) {
