@@ -5,27 +5,31 @@ import {AllActionTypes, PostType} from "../../../redux/store";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/ProfileReducer";
 
 type MyPostsPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
     posts: PostType[]
     newPostText: string
-    dispatch: (action: AllActionTypes) => void
 }
 
 
 const MyPosts: React.FC<MyPostsPropsType> = ({
+                                                 updateNewPostText,
+                                                 addPost,
                                                  posts,
                                                  newPostText,
-                                                 dispatch,
                                              }) => {
     const postsElements = posts.map(post => <Post message={post.message} likes={post.likesCount}/>)
 
 
     const onAddPostClick = () => {
-        if (newPostText) {
-            dispatch(addPostAC())
-        }
+        // if (newPostText) {
+        //     dispatch(addPostAC())
+        // }
+        addPost()
     }
-    const onUpdatePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewPostTextAC(e.currentTarget.value))
+    const onUpdatePostTextClick = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // dispatch(updateNewPostTextAC(e.currentTarget.value))
+        updateNewPostText(e.currentTarget.value)
     }
 
 
@@ -33,7 +37,7 @@ const MyPosts: React.FC<MyPostsPropsType> = ({
         <div className={styles.container}>
             <h3>My posts</h3>
             <div>
-                <div><textarea value={newPostText} onChange={onUpdatePostText}/></div>
+                <div><textarea value={newPostText} onChange={onUpdatePostTextClick}/></div>
                 <div>
                     <button onClick={onAddPostClick}>Add post</button>
                 </div>

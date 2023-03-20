@@ -6,27 +6,29 @@ import {AllActionTypes, DialogsPage} from "../../redux/store";
 import {sendMessageAC, updateNewMessageTextAC} from "../../redux/DialogsReducer";
 
 type DialogsPropsType = {
-    state: DialogsPage
-    dispatch: (action: AllActionTypes) => void
-    newMessageText: string
+    updateTextArea: (text: string) => void
+    sendMessage: () => void
+    dialogsPage: DialogsPage
 }
 
 const Dialogs: React.FC<DialogsPropsType> = ({
-                                                 state,
-                                                 dispatch,
-                                                 newMessageText,
+                                                 updateTextArea,
+                                                 sendMessage,
+                                                 dialogsPage,
                                              }) => {
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewMessageTextAC(e.currentTarget.value))
+        // dispatch(updateNewMessageTextAC(e.currentTarget.value))
+        updateTextArea(e.currentTarget.value)
     }
     const onSendMessageClick = () => {
-        if (newMessageText) {
-            dispatch(sendMessageAC())
-        }
+        // if (newMessageText) {
+        //     dispatch(sendMessageAC())
+        // }
+        sendMessage()
     }
 
-    const dialogsElements = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-    const messagesElements = state.messages.map(message => <Message message={message.message}/>)
+    const dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const messagesElements = dialogsPage.messages.map(message => <Message message={message.message}/>)
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>
@@ -35,7 +37,7 @@ const Dialogs: React.FC<DialogsPropsType> = ({
             <div className={styles.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <div><textarea placeholder={'Enter your message'} value={newMessageText}
+                    <div><textarea placeholder={'Enter your message'} value={dialogsPage.newMessageText}
                                    onChange={onTextareaChange}/></div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
