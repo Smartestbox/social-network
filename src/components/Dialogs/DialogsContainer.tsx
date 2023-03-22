@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {sendMessageAC, updateNewMessageTextAC} from "../../redux/DialogsReducer";
+import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReducer";
 import StoreContext from "../../StoreContext";
 
 type DialogsContainerPropsType = {}

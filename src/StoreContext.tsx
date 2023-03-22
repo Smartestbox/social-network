@@ -1,11 +1,11 @@
 import React from 'react'
-import {AppStateType} from "./redux/redux-store";
+import store, {StoreType} from "./redux/redux-store";
 
 type ProviderPropsType = {
-    store: any
+    store: StoreType
 }
 
-const StoreContext = React.createContext(null)
+const StoreContext = React.createContext(store)
 
 export const Provider: React.FC<ProviderPropsType> = ({
                                                           store,

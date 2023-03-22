@@ -6,7 +6,9 @@ import store from './redux/redux-store'
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "./StoreContext";
 
+
 const rerenderEntireTree = () => {
+    console.dir(store.dispatch)
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>

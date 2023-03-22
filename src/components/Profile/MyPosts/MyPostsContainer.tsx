@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/ProfileReducer";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
 import StoreContext from "../../../StoreContext";
 
 type MyPostsContainerPropsType = {}
@@ -18,7 +18,7 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = () => {
         <StoreContext.Consumer>
             {
                 store => {
-                    if(store) {
+                    if (store) {
                         let state = store.getState()
                         const addPost = () => {
                             store.dispatch(addPostAC())
@@ -35,7 +35,6 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = () => {
                 }
             }
         </StoreContext.Consumer>
-
     )
 }
 

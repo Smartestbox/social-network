@@ -20,10 +20,7 @@ const initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (
-    state: DialogsPage = initialState,
-    action: AllActionTypes
-): DialogsPage => {
+const dialogsReducer = (state: DialogsPage = initialState, action: AllActionTypes): DialogsPage => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             state.newMessageText = action.newMessageText

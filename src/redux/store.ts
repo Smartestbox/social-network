@@ -1,5 +1,5 @@
-import profileReducer, {addPostAC, updateNewPostTextAC} from "./ProfileReducer";
-import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./DialogsReducer";
+import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
+import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./dialogsReducer";
 
 export type ProfilePage = {
     posts: PostType[]
@@ -27,7 +27,7 @@ export type StateType = {
     profilePage: ProfilePage
     dialogsPage: DialogsPage
 }
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
