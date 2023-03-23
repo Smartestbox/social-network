@@ -1,5 +1,4 @@
-import {DialogsPageType} from "./store";
-import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./dialogsReducer";
+import dialogsReducer, {DialogsPageType, sendMessageAC, updateNewMessageTextAC} from "./dialogsReducer";
 
 test('newMessageText should be updated', () => {
     const startState: DialogsPageType = {

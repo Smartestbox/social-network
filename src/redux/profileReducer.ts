@@ -1,6 +1,18 @@
-import {AllActionTypes, PostType, ProfilePageType} from "./store";
 
-const initialState = {
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: string
+}
+export type ProfilePageType = {
+    posts: PostType[]
+    newPostText: string
+}
+type AllActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
+
+
+const initialState: ProfilePageType = {
         posts: [
             {id: '1', message: 'My first post', likesCount: '23'},
             {id: '2', message: 'Post about my life', likesCount: '11'},

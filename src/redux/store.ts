@@ -1,29 +1,29 @@
 import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
 import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./dialogsReducer";
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
 }
-export type PostType = {
+type PostType = {
     id: string
     message: string
     likesCount: string
 }
-export type DialogType = {
+type DialogType = {
     id: string
     name: string
 }
-export type MessageType = {
+type MessageType = {
     id: string
     message: string
 }
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
@@ -42,7 +42,7 @@ export type AllActionTypes =
     | ReturnType<typeof sendMessageAC>
 
 
-const store: StoreType = {
+const store = {
     _state: {
         profilePage: {
             posts: [
@@ -82,11 +82,11 @@ const store: StoreType = {
     getState () {
       return this._state
     },
-    subscribe (observer) {
+    subscribe (observer: any) {
         this._callSubscriber = observer
     },
 
-    dispatch(action) {
+    dispatch(action: any) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()

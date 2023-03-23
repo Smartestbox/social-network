@@ -1,6 +1,20 @@
-import {AllActionTypes, DialogsPageType} from "./store";
 
-const initialState = {
+type DialogType = {
+    id: string
+    name: string
+}
+type MessageType = {
+    id: string
+    message: string
+}
+export type DialogsPageType = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+    newMessageText: string
+}
+type AllActionTypes = ReturnType<typeof updateNewMessageTextAC> | ReturnType<typeof sendMessageAC>
+
+const initialState: DialogsPageType = {
     dialogs: [
         {id: '1', name: 'Dimych'},
         {id: '2', name: 'Andrey'},

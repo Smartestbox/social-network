@@ -1,5 +1,4 @@
-import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
-import {ProfilePageType} from "./store";
+import profileReducer, {addPostAC, ProfilePageType, updateNewPostTextAC} from "./profileReducer";
 
 test('add post', () => {
     const startState: ProfilePageType = {
