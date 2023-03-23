@@ -1,4 +1,4 @@
-import {AllActionTypes, PostType, ProfilePage} from "./store";
+import {AllActionTypes, PostType, ProfilePageType} from "./store";
 
 const initialState = {
         posts: [
@@ -10,12 +10,12 @@ const initialState = {
             {id: '6', message: 'Boring post', likesCount: '2'},
         ],
         newPostText: ''
-    }
+}
 
 const profileReducer = (
-    state: ProfilePage = initialState,
+    state: ProfilePageType = initialState,
     action: AllActionTypes
-): ProfilePage => {
+): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {
@@ -35,7 +35,7 @@ const profileReducer = (
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'}) as const
-export const updateNewPostTextAC = (newText: string) =>
-    ({type: 'UPDATE-NEW-POST-TEXT', newPostText: newText}) as const
+export const updateNewPostTextAC = (newPostText: string) =>
+    ({type: 'UPDATE-NEW-POST-TEXT', newPostText}) as const
 
 export default profileReducer

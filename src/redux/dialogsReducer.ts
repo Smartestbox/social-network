@@ -1,4 +1,4 @@
-import {AllActionTypes, DialogsPage} from "./store";
+import {AllActionTypes, DialogsPageType} from "./store";
 
 const initialState = {
     dialogs: [
@@ -20,7 +20,7 @@ const initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state: DialogsPage = initialState, action: AllActionTypes): DialogsPage => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionTypes): DialogsPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             state.newMessageText = action.newMessageText

@@ -1,11 +1,11 @@
 import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
 import dialogsReducer, {sendMessageAC, updateNewMessageTextAC} from "./dialogsReducer";
 
-export type ProfilePage = {
+export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
-export type DialogsPage = {
+export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
@@ -24,8 +24,8 @@ export type MessageType = {
     message: string
 }
 export type StateType = {
-    profilePage: ProfilePage
-    dialogsPage: DialogsPage
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
 }
 type StoreType = {
     _state: StateType
