@@ -10,20 +10,14 @@ const MyPosts: React.FC<MyPostsType> = ({
                                                  posts,
                                                  newPostText,
                                              }) => {
-    const postsElements = posts.map(post => <Post message={post.message} likes={post.likesCount}/>)
-
+    const postsElements = posts.map(post => <Post key={post.id} message={post.message} likes={post.likesCount}/>)
 
     const onAddPostClick = () => {
-        // if (newPostText) {
-        //     dispatch(addPostAC())
-        // }
         addPost()
     }
     const onUpdatePostTextClick = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // dispatch(updateNewPostTextAC(e.currentTarget.value))
         updateNewPostText(e.currentTarget.value)
     }
-
 
     return (
         <div className={styles.container}>

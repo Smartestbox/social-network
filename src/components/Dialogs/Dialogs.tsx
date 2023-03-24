@@ -10,18 +10,14 @@ const Dialogs: React.FC<DialogsPropsType> = ({
                                                  dialogsPage,
                                              }) => {
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // dispatch(updateNewMessageTextAC(e.currentTarget.value))
         updateTextArea(e.currentTarget.value)
     }
     const onSendMessageClick = () => {
-        // if (newMessageText) {
-        //     dispatch(sendMessageAC())
-        // }
         sendMessage()
     }
 
-    const dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-    const messagesElements = dialogsPage.messages.map(message => <Message message={message.message}/>)
+    const dialogsElements = dialogsPage.dialogs.map(dialog => <DialogItem key={dialog.id} id={dialog.id} name={dialog.name}/>)
+    const messagesElements = dialogsPage.messages.map(message => <Message key={message.id} message={message.message}/>)
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>

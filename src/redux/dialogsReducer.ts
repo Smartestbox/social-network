@@ -1,3 +1,4 @@
+import {v1} from "uuid";
 
 type DialogType = {
     id: string
@@ -36,17 +37,23 @@ const initialState: DialogsPageType = {
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionTypes): DialogsPageType => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.newMessageText
-            return state
-        case 'SEND-MESSAGE':
-            const newMessage = {
-                id: '7',
-                message: state.newMessageText
+        case 'UPDATE-NEW-MESSAGE-TEXT': {
+            return {
+                ...state,
+                newMessageText: action.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            return state
+        }
+        case 'SEND-MESSAGE': {
+            const message = state.newMessageText
+            return {
+                ...state,
+                messages: [...state.messages, {
+                    id: v1(),
+                    message: message
+                }],
+                newMessageText: ''
+            }
+        }
         default:
             return state
     }
