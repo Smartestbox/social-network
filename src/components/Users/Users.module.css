@@ -1,0 +1,9 @@
+.container {
+    color: white;
+    padding: 10px;
+}
+
+.photo {
+    width: 70px;
+    border-radius: 10px;
+}

@@ -11,6 +11,8 @@ export type ProfilePageType = {
 }
 type AllActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
 
+const ADD_POST = 'ADD-POST'
+
 
 const initialState: ProfilePageType = {
     posts: [

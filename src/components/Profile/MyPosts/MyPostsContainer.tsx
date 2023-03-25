@@ -13,7 +13,6 @@ type MapDispatchToPropsType = {
         updateNewPostText: (text: string) => void
         addPost: () => void
 }
-
 export type MyPostsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
