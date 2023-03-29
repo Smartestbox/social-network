@@ -1,18 +1,21 @@
-import {v1} from "uuid";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
+export type PhotosType = {
+    small: string | null
+    large: string | null
+}
 export type LocationType = {
     country: string
     city: string
 }
 export type UserType = {
     id: string
-    photoUrl: string
+    photos: PhotosType
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
 }
@@ -26,35 +29,7 @@ export type AllActionsType =
     | ReturnType<typeof setUsersAC>
 
 const initialState: UsersPageType = {
-    users: [
-        {
-            id: v1(),
-            photoUrl: 'https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg',
-            followed: false,
-            fullName: 'Igor',
-            status: 'I am a boss',
-            location:
-                {country: 'Russia', city: 'Moscow'}
-        },
-        {
-            id: v1(),
-            photoUrl: 'https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg',
-            followed: true,
-            fullName: 'Alexander',
-            status: 'I am a friend',
-            location:
-                {country: 'Russia', city: 'Perm'}
-        },
-        {
-            id: v1(),
-            photoUrl: 'https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg',
-            followed: false,
-            fullName: 'Ivan',
-            status: 'I am friend',
-            location:
-                {country: 'Russia', city: 'Perm'}
-        },
-    ]
+    users: []
 }
 
 const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {

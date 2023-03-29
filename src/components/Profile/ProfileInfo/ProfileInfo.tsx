@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentImg from "../../../images/content-img.jpg";
+import ContentImg from "../../../assets/images/content-img.jpg";
 import styles from './ProfileInfo.module.css'
 
 const ProfileInfo = () => {

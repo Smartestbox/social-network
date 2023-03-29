@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Post.module.css'
-import DefaultAvatar from "../../../../images/default-avatar.png";
+import DefaultAvatar from "../../../../assets/images/default-avatar.png";
 
 type PostPropsType = {
     message: string
