@@ -4,10 +4,10 @@ import {AppStateType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unfollowAC, UserType} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 
-type MapStateToPropsType = {
+export type MapStateToPropsType = {
     users: UserType[]
 }
-type MapDispatchToPropsType = {
+export type MapDispatchToPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: UserType[]) => void

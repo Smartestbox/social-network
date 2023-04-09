@@ -1,60 +1,111 @@
 import React from 'react';
 import styles from './Users.module.css'
-import {UsersType} from "./UsersContainer";
+import {MapDispatchToPropsType, MapStateToPropsType, UsersType} from "./UsersContainer";
 import axios from "axios";
 import userPhoto from '../../assets/images/default-avatar.png'
 
-const Users: React.FC<UsersType> = ({
-                                        users,
-                                        follow,
-                                        unfollow,
-                                        setUsers
-                                    }) => {
+// const Users: React.FC<UsersType> = ({
+//                                         users,
+//                                         follow,
+//                                         unfollow,
+//                                         setUsers
+//                                     }) => {
+//
+//             if (users.length === 0) {
+//                 axios
+//                     .get('https://social-network.samuraijs.com/api/1.0/users')
+//                     .then(response => {
+//                         setUsers(response.data.items)
+//                     })
+//             }
+//
+//
+//
+//         const mappedUsers = users.map(user => {
+//             const onUnfollowClick = () => {
+//                 unfollow(user.id)
+//             }
+//             const onFollowClick = () => {
+//                 follow(user.id)
+//             }
+//
+//             return (
+//                 <div key={user.id}>
+//                     <div>
+//                         <img src={user.photos.small !== null ? user.photos.small : userPhoto} className={styles.photo}
+//                              alt='user-avatar'/>
+//                     </div>
+//                     <div>
+//                         {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
+//                             <button onClick={onFollowClick}>Follow</button>
+//                         }
+//                     </div>
+//                     <div>{user.name}</div>
+//                     <div>{user.status}</div>
+//                     <div>{'user.location.country'}</div>
+//                     <div>{'user.location.city'}</div>
+//                 </div>
+//             )
+//         })
+//
+//         return (
+//             <div className={styles.container}>
+//                 {mappedUsers}
+//             </div>
+//         );
+//     }
+// ;
 
-            if (users.length === 0) {
-                axios
-                    .get('https://social-network.samuraijs.com/api/1.0/users')
-                    .then(response => {
-                        setUsers(response.data.items)
-                    })
-            }
+type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
+class Users extends React.Component<UsersPropsType, any> {
 
+    componentDidMount() {
+        if (this.props.users.length === 0) {
+            axios
+                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                })
+        }
+    }
 
-        const mappedUsers = users.map(user => {
-            const onUnfollowClick = () => {
-                unfollow(user.id)
-            }
-            const onFollowClick = () => {
-                follow(user.id)
-            }
-
-            return (
-                <div key={user.id}>
-                    <div>
-                        <img src={user.photos.small !== null ? user.photos.small : userPhoto} className={styles.photo}
-                             alt='user-avatar'/>
-                    </div>
-                    <div>
-                        {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
-                            <button onClick={onFollowClick}>Follow</button>
-                        }
-                    </div>
-                    <div>{user.name}</div>
-                    <div>{user.status}</div>
-                    <div>{'user.location.country'}</div>
-                    <div>{'user.location.city'}</div>
-                </div>
-            )
-        })
-
+    render() {
         return (
             <div className={styles.container}>
-                {mappedUsers}
+                {
+                    this.props.users.map(user => {
+                        const onUnfollowClick = () => {
+                            this.props.unfollow(user.id)
+                        }
+                        const onFollowClick = () => {
+                            this.props.follow(user.id)
+                        }
+
+                        return (
+                            <div key={user.id}>
+                                <div>
+                                    <img src={user.photos.small !== null ? user.photos.small : userPhoto}
+                                         className={styles.photo}
+                                         alt='user-avatar'/>
+                                </div>
+                                <div>
+                                    {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
+                                        <button onClick={onFollowClick}>Follow</button>
+                                    }
+                                </div>
+                                <div>{user.name}</div>
+                                <div>{user.status}</div>
+                                <div>{'user.location.country'}</div>
+                                <div>{'user.location.city'}</div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         );
     }
-;
+}
 
 export default Users;
 
