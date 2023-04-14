@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Users from "./Users";
+import UsersAPIComponent from "./UsersAPIComponent";
 import {AppStateType} from "../../redux/redux-store";
 import {
     followAC,
@@ -45,6 +45,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => ({
     }
 })
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 
 export default UsersContainer
