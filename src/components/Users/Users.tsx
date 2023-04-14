@@ -31,8 +31,9 @@ const Users: React.FC<UsersPropsType> = ({
         <div>
             <div className={styles.pages}>
                 {
-                    pages.map(page =>
+                    pages.map((page, index) =>
                         <span
+                            key={index}
                             className={page === currentPage ? styles.selectedPage : ''}
                             onClick={() => onCurrentPageClick(page)}
                         >

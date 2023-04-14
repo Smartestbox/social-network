@@ -38,7 +38,7 @@ const initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsers: 0,
-    currentPage: 2
+    currentPage: 1
 }
 
 const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
