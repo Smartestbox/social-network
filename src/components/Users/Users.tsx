@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './Users.module.css'
-import {MapDispatchToPropsType, MapStateToPropsType, UsersType} from "./UsersContainer";
+import {MapDispatchToPropsType} from "./UsersContainer";
 import axios from "axios";
 import userPhoto from '../../assets/images/default-avatar.png'
+import {setCurrentPageAC, UsersPageType} from "../../redux/users-reducer";
 
 // const Users: React.FC<UsersType> = ({
 //                                         users,
@@ -56,53 +57,86 @@ import userPhoto from '../../assets/images/default-avatar.png'
 //     }
 // ;
 
-type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+type UsersPropsType = UsersPageType & MapDispatchToPropsType
 
 class Users extends React.Component<UsersPropsType, any> {
 
     componentDidMount() {
         if (this.props.users.length === 0) {
             axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
                 .then(response => {
                     this.props.setUsers(response.data.items)
+                    this.props.setTotalUsers(Number(response.data.totalCount))
                 })
         }
     }
 
-    render() {
-        return (
-            <div className={styles.container}>
-                {
-                    this.props.users.map(user => {
-                        const onUnfollowClick = () => {
-                            this.props.unfollow(user.id)
-                        }
-                        const onFollowClick = () => {
-                            this.props.follow(user.id)
-                        }
+    onCurrentPageClick(currentPage: number) {
+        this.props.setCurrentPage((currentPage))
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
 
-                        return (
-                            <div key={user.id}>
-                                <div>
-                                    <img src={user.photos.small !== null ? user.photos.small : userPhoto}
-                                         className={styles.photo}
-                                         alt='user-avatar'/>
+    render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsers / this.props.pageSize)
+        let pages = []
+        for(let i = 1; i <= 10; i++) {
+            pages.push(i)
+        }
+
+        return (
+            <div>
+                <div className={styles.pages}>
+                    {
+                        pages.map(page =>
+                            <span
+                                className={page === this.props.currentPage ? styles.selectedPage : ''}
+                                onClick={() => { this.onCurrentPageClick(page) }}
+                            >
+                                {page}
+                            </span>)
+                    }
+
+                    {/*{this.props.users.length}*/}
+                </div>
+                <div className={styles.container}>
+                    {
+                        this.props.users.map(user => {
+                            const onUnfollowClick = () => {
+                                this.props.unfollow(user.id)
+                            }
+                            const onFollowClick = () => {
+                                this.props.follow(user.id)
+                            }
+
+                            return (
+                                <div key={user.id}>
+                                    <div>
+                                        <img src={user.photos.small !== null ? user.photos.small : userPhoto}
+                                             className={styles.photo}
+                                             alt='user-avatar'/>
+                                    </div>
+                                    <div>
+                                        {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
+                                            <button onClick={onFollowClick}>Follow</button>
+                                        }
+                                    </div>
+                                    <div>{user.name}</div>
+                                    <div>{user.status}</div>
+                                    <div>{'user.location.country'}</div>
+                                    <div>{'user.location.city'}</div>
                                 </div>
-                                <div>
-                                    {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
-                                        <button onClick={onFollowClick}>Follow</button>
-                                    }
-                                </div>
-                                <div>{user.name}</div>
-                                <div>{user.status}</div>
-                                <div>{'user.location.country'}</div>
-                                <div>{'user.location.city'}</div>
-                            </div>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </div>
             </div>
+
         );
     }
 }

@@ -7,3 +7,11 @@
     width: 50px;
     border-radius: 25px;
 }
+
+.pages {
+    color: white;
+}
+
+.selectedPage {
+    font-weight: bold;
+}

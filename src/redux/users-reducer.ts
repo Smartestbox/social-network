@@ -1,7 +1,8 @@
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_USERS = 'SET-TOTAL-USERS'
 
 export type PhotosType = {
     small: string | null
@@ -21,15 +22,23 @@ export type UserType = {
 }
 export type UsersPageType = {
     users: UserType[]
+    pageSize: number
+    totalUsers: number
+    currentPage: number
 }
 
 export type AllActionsType =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersAC>
 
 const initialState: UsersPageType = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsers: 0,
+    currentPage: 2
 }
 
 const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
@@ -49,7 +58,17 @@ const usersReducer = (state = initialState, action: AllActionsType): UsersPageTy
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case SET_TOTAL_USERS:
+            return {
+                ...state,
+                totalUsers: action.totalUsers
             }
         default:
             return state
@@ -59,5 +78,9 @@ const usersReducer = (state = initialState, action: AllActionsType): UsersPageTy
 export const followAC = (userId: string) => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId: string) => ({type: UNFOLLOW, userId} as const)
 export const setUsersAC = (users: UserType[]) => ({type: SET_USERS, users} as const)
+export const setCurrentPageAC = (currentPage: number) =>
+    ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersAC = (totalUsers: number) =>
+    ({type: SET_TOTAL_USERS, totalUsers} as const)
 
 export default usersReducer
