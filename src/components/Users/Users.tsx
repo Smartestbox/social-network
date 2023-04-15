@@ -61,7 +61,7 @@ const Users: React.FC<UsersPropsType> = ({
                                          alt='user-avatar'/>
                                 </div>
                                 <div>
-                                    {user.followed ? <button onClick={onUnfollowClick}>Unollow</button> :
+                                    {user.followed ? <button onClick={onUnfollowClick}>Unfollow</button> :
                                         <button onClick={onFollowClick}>Follow</button>
                                     }
                                 </div>
