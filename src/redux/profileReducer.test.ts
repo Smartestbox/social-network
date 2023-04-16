@@ -10,7 +10,8 @@ test('add post', () => {
             {id: '5', message: 'Nothing happen', likesCount: '0'},
             {id: '6', message: 'Boring post', likesCount: '2'},
         ],
-        newPostText: 'text for test'
+        newPostText: 'text for test',
+        profile: null
     }
 
     const action = addPostAC()
@@ -30,7 +31,8 @@ test('update new post text', () => {
             {id: '5', message: 'Nothing happen', likesCount: '0'},
             {id: '6', message: 'Boring post', likesCount: '2'},
         ],
-        newPostText: ''
+        newPostText: '',
+        profile: null
     }
 
     const action = updateNewPostTextAC('text for test')

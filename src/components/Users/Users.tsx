@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/default-avatar.png";
 import {UserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     totalUsers: number
@@ -14,14 +15,14 @@ type UsersPropsType = {
 }
 
 const Users: React.FC<UsersPropsType> = ({
-                               totalUsers,
-                               pageSize,
-                               currentPage,
-                               onCurrentPageClick,
-                               users,
-                               follow,
-                               unfollow
-                           }) => {
+                                             totalUsers,
+                                             pageSize,
+                                             currentPage,
+                                             onCurrentPageClick,
+                                             users,
+                                             follow,
+                                             unfollow
+                                         }) => {
     let pagesCount = Math.ceil(totalUsers / pageSize)
     let pages = []
     for (let i = 1; i <= 10; i++) {
@@ -56,9 +57,12 @@ const Users: React.FC<UsersPropsType> = ({
                         return (
                             <div key={user.id}>
                                 <div>
-                                    <img src={user.photos.small !== null ? user.photos.small : userPhoto}
-                                         className={styles.photo}
-                                         alt='user-avatar'/>
+                                    <NavLink to={'/profile/' + user.id}>
+                                        <img src={user.photos.small !== null ? user.photos.small : userPhoto}
+                                             className={styles.photo}
+                                             alt='user-avatar'
+                                        />
+                                    </NavLink>
                                 </div>
                                 <div>
                                     {user.followed ? <button onClick={onUnfollowClick}>Unfollow</button> :
