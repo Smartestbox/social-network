@@ -2,7 +2,7 @@
     grid-area: header;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     padding-left: 20px;
     background-color: rgb(58 122 182);
     color: white;
@@ -13,3 +13,9 @@
     max-width: fit-content;
     cursor: pointer;
 }
+
+.loginBlock a {
+    text-decoration: none;
+    color: white;
+}
+

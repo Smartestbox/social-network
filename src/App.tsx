@@ -9,14 +9,15 @@ import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 type AppPropsType = {}
 
 const App: React.FC<AppPropsType> = ({}) => {
     return (
         <div className={styles.appWrapper}>
-            <Header/>
-            <Navbar/>
+            <HeaderContainer />
+            <Navbar />
             <div className={styles.appWrapperContent}>
                 <Route path={'/profile/:userId?'} render={() => <ProfileContainer />}/>
                 <Route path={'/dialogs'} render={() => <DialogsContainer />}/>

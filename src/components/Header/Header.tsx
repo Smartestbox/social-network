@@ -1,11 +1,21 @@
 import React from 'react';
 import styles from "./Header.module.css";
+import {NavLink} from "react-router-dom";
 
-const Header = () => {
+type HeaderPropsType = {
+    login: string
+    isAuth: boolean
+}
+
+const Header: React.FC<HeaderPropsType> = ({
+                                               login, isAuth
+                                           }) => {
     return (
         <header className={styles.header}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512"><title>Logo Apple
-                Ar</title>
+            <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
+                <title>
+                    Logo Apple Ar
+                </title>
                 <path fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
                       strokeWidth="32" d="M201.14 64L256 32l54.86 32"/>
                 <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32"
@@ -31,6 +41,13 @@ const Header = () => {
                 <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32"
                       d="M448 144l-67.29 40M256 320v-64l54.86-32M256 256l-54.86-32"/>
             </svg>
+            <div className={styles.loginBlock}>
+                {isAuth
+                    ? login
+                    : <NavLink to={'/login'}>
+                        Login
+                    </NavLink>}
+            </div>
         </header>
     );
 };
