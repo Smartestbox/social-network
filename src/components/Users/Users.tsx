@@ -11,8 +11,10 @@ type UsersPropsType = {
     currentPage: number
     onCurrentPageClick: (page: number) => void
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    toggleIsFollowingInProgress: (isFetching: boolean, userId: number) => void
+    isFollowingInProgress: number[]
 }
 
 const Users: React.FC<UsersPropsType> = ({
@@ -22,7 +24,9 @@ const Users: React.FC<UsersPropsType> = ({
                                              onCurrentPageClick,
                                              users,
                                              follow,
-                                             unfollow
+                                             unfollow,
+                                             toggleIsFollowingInProgress,
+                                             isFollowingInProgress
                                          }) => {
     let pagesCount = Math.ceil(totalUsers / pageSize)
     let pages = []
@@ -43,12 +47,12 @@ const Users: React.FC<UsersPropsType> = ({
                         </span>)
                 }
 
-                {/*{this.props.users.length}*/}
             </div>
             <div className={styles.container}>
                 {
                     users.map(user => {
                         const onUnfollowClick = () => {
+                            toggleIsFollowingInProgress(true, user.id)
                             axios
                                 .delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
                                     withCredentials: true,
@@ -57,12 +61,14 @@ const Users: React.FC<UsersPropsType> = ({
                                     }
                                 })
                                 .then(response => {
-                                    if(response.data.resultCode === 0) {
+                                    if (response.data.resultCode === 0) {
                                         unfollow(user.id)
                                     }
+                                    toggleIsFollowingInProgress(false, user.id)
                                 })
                         }
                         const onFollowClick = () => {
+                            toggleIsFollowingInProgress(true, user.id)
                             axios
                                 .post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
                                     withCredentials: true,
@@ -74,6 +80,7 @@ const Users: React.FC<UsersPropsType> = ({
                                     if (response.data.resultCode === 0) {
                                         follow(user.id)
                                     }
+                                    toggleIsFollowingInProgress(false, user.id)
                                 })
                         }
 
@@ -89,8 +96,19 @@ const Users: React.FC<UsersPropsType> = ({
                                 </div>
                                 <div>
                                     {user.followed
-                                        ? <button onClick={onUnfollowClick}>Unfollow</button>
-                                        : <button onClick={onFollowClick}>Follow</button>
+                                        ? <button
+                                            disabled={isFollowingInProgress.some(id => id === user.id)}
+                                            onClick={onUnfollowClick}
+                                        >
+                                            Unfollow
+                                        </button>
+                                        :
+                                        <button
+                                            disabled={isFollowingInProgress.some(id => id === user.id)}
+                                            onClick={onFollowClick}
+                                        >
+                                            Follow
+                                        </button>
                                     }
                                 </div>
                                 <div>{user.name}</div>

@@ -1,32 +1,32 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow, setCurrentPage, setIsFetching, setTotalUsers, setUsers, unfollow,
+    follow, setCurrentPage, setIsFetching, setTotalUsers, setUsers, toggleIsFollowingInProgress, unfollow,
     UsersPageType,
     UserType
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {usersAPI} from "../../api/api";
 
 export type MapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (page: number) => void
     setTotalUsers: (totalUsers: number) => void
     setIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingInProgress: (isFetching: boolean, userId: number) => void
 }
-// export type UsersType = UsersPageType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): UsersPageType => ({
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
     totalUsers: state.usersPage.totalUsers,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    isFollowingInProgress: state.usersPage.isFollowingInProgress
 })
 
 
@@ -65,7 +65,8 @@ class UsersContainer extends React.Component<UsersPageType & MapDispatchToPropsT
                     users={this.props.users}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
-
+                    toggleIsFollowingInProgress={this.props.toggleIsFollowingInProgress}
+                    isFollowingInProgress={this.props.isFollowingInProgress}
                 />
             </>
 
@@ -81,5 +82,6 @@ export default connect(
         setUsers,
         setCurrentPage,
         setTotalUsers,
-        setIsFetching
+        setIsFetching,
+        toggleIsFollowingInProgress
     })(UsersContainer)
